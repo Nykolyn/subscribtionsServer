@@ -5,12 +5,16 @@ const Subscriber = mongoose.Schema({
     type: String,
     required: true
   },
+  userID: {
+    type: String,
+    required: false
+  },
   date: {
     type: String,
     required: true
   },
   favorite: {
-    type: String,
+    type: Boolean,
     default: false
   }
 });

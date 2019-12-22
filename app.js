@@ -2,8 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-const cors = require("cors");
 dotenv.config();
+const cors = require("cors");
+
+const { authCheck } = require("./helpers/jwt");
 const { subscribersRoutes } = require("./routes/routes");
 const setupDB = require("./helpers/setupDB");
 setupDB();
@@ -15,7 +17,7 @@ app
   .use(cors())
   .use(bodyParser.urlencoded({ extended: false }))
   .use(bodyParser.json())
-  .use("/subscribers", subscribersRoutes)
+  .use("/subscribers", authCheck, subscribersRoutes)
   .use((err, req, res, next) => res.status(500).json(err));
 
 app.listen(process.env.PORT || 8080, () =>

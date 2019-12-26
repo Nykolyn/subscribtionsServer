@@ -39,16 +39,6 @@ class SubscriberController {
       next(err);
     }
   }
-
-  async signUp(req, res, next) {
-    try {
-      const password = req.body;
-      const response = await SubscribersServices.signUp(password);
-      return res.json(response);
-    } catch (err) {
-      next(err);
-    }
-  }
 }
 
 module.exports = new SubscriberController();

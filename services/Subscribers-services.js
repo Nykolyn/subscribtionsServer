@@ -1,5 +1,5 @@
 const { Subscriber } = require("../models");
-const { createToken } = require("../helpers/jwt");
+
 class SubscribersServices {
   async getSubs() {
     try {
@@ -40,18 +40,6 @@ class SubscribersServices {
       return updatedSub;
     } catch (e) {
       console.log(`error while updating sub, ${e}`);
-    }
-  }
-
-  async signUp({ password }) {
-    try {
-      if (password !== process.env.ADMIN_PASSWORD)
-        return { message: "wrong password" };
-
-      const token = createToken(password);
-      return { message: "Success", token };
-    } catch (e) {
-      console.log(`error while signing up admin, ${e}`);
     }
   }
 }

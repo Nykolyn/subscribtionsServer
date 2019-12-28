@@ -2,13 +2,14 @@ const { User } = require("../models");
 const { createToken } = require("../helpers/jwt");
 
 class AuthServices {
-  async login({ password }) {
+  async login({ email, password }) {
     try {
-      if (password !== process.env.ADMIN_PASSWORD)
-        return { message: "wrong password" };
-
-      const token = createToken(password);
-      return { message: "Success", token };
+      const user = await User.findOne({ email, password });
+      let token;
+      if (user) {
+        token = createToken(user);
+      }
+      return { user: user.getCleanUser(), token };
     } catch (e) {
       console.log(`error while signing up admin, ${e}`);
     }
@@ -17,7 +18,7 @@ class AuthServices {
   async register({ email, password, role }) {
     try {
       if (await User.findOne({ email })) {
-        return { message: "User already exists." };
+        return { message: "User already exist" };
       }
 
       if (role === "admin") {
@@ -37,6 +38,19 @@ class AuthServices {
       return { user: newUser.getCleanUser(), token };
     } catch (err) {
       throw err;
+    }
+  }
+
+  async getUser(id) {
+    try {
+      const user = await User.findOne({ _id: id });
+      let token;
+      if (user) {
+        token = createToken(user);
+      }
+      return { user: user.getCleanUser(), token };
+    } catch (e) {
+      console.log(`error while signing up admin, ${e}`);
     }
   }
 }

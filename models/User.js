@@ -14,10 +14,6 @@ const User = mongoose.Schema({
   role: {
     type: String,
     default: "user"
-  },
-  subscribtions: {
-    type: Array,
-    default: []
   }
 });
 

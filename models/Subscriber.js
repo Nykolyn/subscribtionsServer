@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const Subscriber = mongoose.Schema({
+  ownerId: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true

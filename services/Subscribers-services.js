@@ -1,9 +1,9 @@
 const { Subscriber } = require("../models");
 
 class SubscribersServices {
-  async getSubs() {
+  async getSubs(ownerId) {
     try {
-      return await Subscriber.find({});
+      return await Subscriber.find({ ownerId });
     } catch (e) {
       console.log(`error while getting subs, ${e}`);
     }

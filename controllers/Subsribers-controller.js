@@ -1,9 +1,17 @@
 const { SubscribersServices } = require("../services");
+const subsArr = require("../subs");
+const neededSubs = subsArr.map(({ favorite, date, name, userID }) => ({
+  favorite,
+  date,
+  name,
+  userID
+}));
 
 class SubscriberController {
   async getSubs(req, res, next) {
     try {
-      const subs = await SubscribersServices.getSubs();
+      const { ownerId } = req.body;
+      const subs = await SubscribersServices.getSubs(ownerId);
       return res.json({ message: "success getting subs", subs });
     } catch (err) {
       next(err);

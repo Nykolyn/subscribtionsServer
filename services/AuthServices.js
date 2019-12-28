@@ -9,6 +9,9 @@ class AuthServices {
       if (user) {
         token = createToken(user);
       }
+
+      if (!user) return { message: "Invalid email or password" };
+
       return { user: user.getCleanUser(), token };
     } catch (e) {
       console.log(`error while signing up admin, ${e}`);

@@ -24,7 +24,6 @@ module.exports.authCheck = (req, res, next) => {
     if (err) {
       return res.status(401).json({ message: "Invalid auth" });
     }
-    console.log(decodedToken);
     const { id } = decodedToken;
     const user = await User.findOne({ _id: id });
 

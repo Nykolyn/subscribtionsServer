@@ -18,7 +18,7 @@ class SubscribersServices {
       if (existingSub) return { message: "Sub already exists" };
       let newSub = await new Subscriber(sub);
       newSub = await newSub.save();
-      return newSub;
+      return {message: "success", newSub};
     } catch (e) {
       console.log(`error while adding sub, ${e}`);
     }

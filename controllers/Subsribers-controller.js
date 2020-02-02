@@ -14,7 +14,10 @@ class SubscriberController {
     try {
       const sub = req.body;
       const addedSub = await SubscribersServices.addSub(sub);
-      return res.json({ message: "success adding sub", addedSub });
+
+      if (!addedSub.newSub) return res.status(400).json(addedSub)
+
+      return res.json(addedSub);
     } catch (err) {
       next(err);
     }

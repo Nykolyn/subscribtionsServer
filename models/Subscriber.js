@@ -1,26 +1,30 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Subscriber = mongoose.Schema({
   ownerId: {
     type: String,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   userID: {
     type: String,
-    required: false
+    required: false,
   },
   date: {
     type: String,
-    required: true
+    required: true,
+  },
+  visitedAt: {
+    type: String,
+    required: false,
   },
   favorite: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
-module.exports = mongoose.model("subscribers", Subscriber);
+module.exports = mongoose.model('subscribers', Subscriber);

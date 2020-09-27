@@ -1,4 +1,4 @@
-const { Subscriber } = require("../models");
+const { Subscriber } = require('../models');
 
 class SubscribersServices {
   async getSubs(ownerId) {
@@ -13,12 +13,12 @@ class SubscribersServices {
     try {
       const allSubs = await Subscriber.find({ ownerId: sub.ownerId });
       const existingSub = allSubs.find(
-        oldSub => oldSub.name === sub.name || oldSub.userID === sub.userID
+        (oldSub) => oldSub.name === sub.name || oldSub.userID === sub.userID
       );
-      if (existingSub) return { message: "Sub already exists" };
+      if (existingSub) return { message: 'Sub already exists' };
       let newSub = await new Subscriber(sub);
       newSub = await newSub.save();
-      return {message: "success", newSub};
+      return { message: 'success', newSub };
     } catch (e) {
       console.log(`error while adding sub, ${e}`);
     }
@@ -35,11 +35,11 @@ class SubscribersServices {
     }
   }
 
-  async updateFav(id, favorite) {
+  async updateSub(id, sub) {
     try {
       const updatedSub = await await Subscriber.findOneAndUpdate(
         { _id: id },
-        { favorite },
+        sub,
         { new: true }
       );
       return updatedSub;

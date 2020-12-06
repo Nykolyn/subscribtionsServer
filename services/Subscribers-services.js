@@ -12,9 +12,7 @@ class SubscribersServices {
   async addSub(sub) {
     try {
       const allSubs = await Subscriber.find({ ownerId: sub.ownerId });
-      const existingSub = allSubs.find(
-        (oldSub) => oldSub.name === sub.name || oldSub.userID === sub.userID
-      );
+      const existingSub = allSubs.find(({ userID }) => userID === sub.userID);
       if (existingSub) return { message: 'Sub already exists' };
       let newSub = await new Subscriber(sub);
       newSub = await newSub.save();
